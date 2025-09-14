@@ -3,6 +3,7 @@ package com.java.portfolio.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,10 +27,10 @@ public class CustomerEntity {
     private String email;
 
     @Column(name = "phone")
-    private Integer phoneNo;
+    private Long phoneNo;
 
     @Column(name = "dob")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
