@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -31,5 +32,25 @@ public class CustomerServiceImpl implements CustomerService {
         }else{
             return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS,ApplicationConstants.SUCCESS_DATA_FETCHED_MSG,model);
         }
+    }
+
+    @Override
+    public CustomerResponse viewById(Long id) {
+        CustomerEntity entity = repository.findById(id).orElse(null);
+
+        if (entity == null) {
+            return new CustomerResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), ApplicationConstants.ID_NOT_FOUND, null);
+        } else {
+            List<CustomerEntity> data = new ArrayList<>();
+            data.add(entity);
+
+            List<Customer> model = data.stream().map(dat -> new Customer(dat.getId(), dat.getFirstName(),
+                            dat.getLastName(), dat.getEmail(), dat.getPhoneNo(), dat.getBirthDate(),
+                            dat.getCreatedAt(), dat.getUpdatedAt()))
+                    .toList();
+
+            return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_FETCHED_MSG, model);
+        }
+
     }
 }
