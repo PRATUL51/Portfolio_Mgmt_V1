@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<CustomerResponse> fetchById(@PathVariable("id") Long id){
+    public ResponseEntity<CustomerResponse> fetchById(@PathVariable("id") String id){
         return ResponseEntity.ok(service.viewById(id));
     }
 

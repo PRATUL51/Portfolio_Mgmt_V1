@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 public interface CustomerService {
     public CustomerResponse viewALlCustomers();
 
-    public CustomerResponse viewById(Long id);
+    public CustomerResponse viewById(String id);
 }

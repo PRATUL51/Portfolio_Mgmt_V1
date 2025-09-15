@@ -13,9 +13,8 @@ import java.util.Date;
 @Data
 public class CustomerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "pan_id")
+    private String id;
 
     @Column(name = "first_name")
     private String firstName;

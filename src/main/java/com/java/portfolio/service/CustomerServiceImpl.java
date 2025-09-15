@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse viewById(Long id) {
+    public CustomerResponse viewById(String id) {
         CustomerEntity entity = repository.findById(id).orElse(null);
 
         if (entity == null) {
