@@ -4,13 +4,17 @@ import com.java.portfolio.constants.ApplicationConstants;
 import com.java.portfolio.entity.CustomerEntity;
 import com.java.portfolio.model.Customer;
 import com.java.portfolio.repository.CustomerRepository;
+import com.java.portfolio.request.CustomerRequest;
 import com.java.portfolio.response.CustomerResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -52,5 +56,27 @@ public class CustomerServiceImpl implements CustomerService {
             return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_FETCHED_MSG, model);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public CustomerResponse addCustomer(CustomerRequest request) {
+        Optional<CustomerEntity> entity = repository.findById(request.getPanId());
+
+        if(entity.isPresent()){
+            return new CustomerResponse(HttpStatus.BAD_REQUEST.value(),ApplicationConstants.ID_EXIST_MSG,"",null);
+        }else{
+            CustomerEntity cust = new CustomerEntity();
+            cust.setId(request.getPanId());
+            cust.setFirstName(request.getFirstName());
+            cust.setLastName(request.getLastName());
+            cust.setBirthDate(request.getBirthDate());
+            cust.setPhoneNo(request.getPhoneNo());
+            cust.setEmail(request.getEmail());
+            cust.setCreatedAt(LocalDateTime.now());
+
+            repository.save(cust);
+            return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_INSERT_MSG, null);
+        }
     }
 }
