@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<CustomerEntity> entity = repository.findById(request.getPanId());
 
         if(entity.isPresent()){
-            return new CustomerResponse(HttpStatus.BAD_REQUEST.value(),ApplicationConstants.ID_EXIST_MSG,"",null);
+            return new CustomerResponse(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.name(),ApplicationConstants.ID_EXIST_MSG,null);
         }else{
             CustomerEntity cust = new CustomerEntity();
             cust.setId(request.getPanId());
@@ -77,6 +77,52 @@ public class CustomerServiceImpl implements CustomerService {
 
             repository.save(cust);
             return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_INSERT_MSG, null);
+        }
+    }
+
+    @Override
+    @Transactional
+    public CustomerResponse updateCustomer(CustomerRequest request) {
+        Optional<CustomerEntity> entity = repository.findById(request.getPanId());
+
+        if(entity.isPresent()){
+            CustomerEntity cust = entity.get();
+
+            // update only if provided in request
+            if (request.getFirstName() != null) {
+                cust.setFirstName(request.getFirstName());
+            }
+            if (request.getLastName() != null) {
+                cust.setLastName(request.getLastName());
+            }
+            if (request.getBirthDate() != null) {
+                cust.setBirthDate(request.getBirthDate());
+            }
+            if (request.getPhoneNo() != null) {
+                cust.setPhoneNo(request.getPhoneNo());
+            }
+            if (request.getEmail() != null) {
+                cust.setEmail(request.getEmail());
+            }
+            cust.setUpdatedAt(LocalDateTime.now());
+
+            repository.save(cust);
+            return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_UPDATED_MSG, null);
+        }else{
+            return new CustomerResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), ApplicationConstants.ID_NOT_FOUND, null);
+        }
+    }
+
+    @Override
+    @Transactional
+    public CustomerResponse deleteCustomer(String id) {
+        Optional<CustomerEntity> entity = repository.findById(id);
+
+        if(entity.isPresent()){
+            repository.deleteById(id);
+            return new CustomerResponse(HttpStatus.OK.value(), ApplicationConstants.SUCCESS, ApplicationConstants.SUCCESS_DATA_DELETED_MSG, null);
+        }else{
+            return new CustomerResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), ApplicationConstants.ID_NOT_FOUND, null);
         }
     }
 }

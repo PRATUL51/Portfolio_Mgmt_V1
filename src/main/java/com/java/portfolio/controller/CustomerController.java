@@ -28,4 +28,15 @@ public class CustomerController {
         return ResponseEntity.ok(service.addCustomer(request));
     }
 
+    @PatchMapping("/customer/test")
+    public ResponseEntity<CustomerResponse> updateCust(@RequestBody CustomerRequest request){
+        return ResponseEntity.ok(service.updateCustomer(request));
+    }
+
+    @DeleteMapping("/customer/{id}/test")
+    public ResponseEntity<CustomerResponse> deleteCust(@PathVariable String id){
+        return ResponseEntity.ok(service.deleteCustomer(id));
+    }
+
+
 }

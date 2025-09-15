@@ -11,4 +11,8 @@ public interface CustomerService {
     public CustomerResponse viewById(String id);
 
     public CustomerResponse addCustomer(CustomerRequest request);
+
+    public CustomerResponse updateCustomer(CustomerRequest request);
+
+    public CustomerResponse deleteCustomer(String id);
 }
