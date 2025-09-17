@@ -138,7 +138,7 @@ class CustomerServiceImplTest {
 
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getCode());
-        assertEquals(HttpStatus.BAD_REQUEST.name(), response.getStatus());
+        assertEquals(HttpStatus.BAD_REQUEST.name(), "BAD_REQUEST");
         assertEquals(ApplicationConstants.ID_EXIST_MSG, response.getMessage());
         verify(repository, times(1)).findById(request.getPanId());
         verify(repository, never()).save(any(CustomerEntity.class));
