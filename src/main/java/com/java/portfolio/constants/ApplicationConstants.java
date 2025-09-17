@@ -11,4 +11,6 @@ public class ApplicationConstants {
     public static final String ID_EXIST_MSG = "Given ID Already Exist";
     public static final String SUCCESS_DATA_UPDATED_MSG = "Data Updated successfully!!";
     public static final String SUCCESS_DATA_DELETED_MSG = "Data Deleted successfully!!";
+
+    public static final String PAN_ID_NOT_FOUND_DATA = " :- PAN ID not found ";
 }

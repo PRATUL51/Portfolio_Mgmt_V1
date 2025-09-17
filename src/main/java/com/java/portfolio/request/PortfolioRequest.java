@@ -11,5 +11,5 @@ public class PortfolioRequest {
     private Long portfolioId;
     private String panId;
     private String name;
-    private String message;
+    private String description;
 }

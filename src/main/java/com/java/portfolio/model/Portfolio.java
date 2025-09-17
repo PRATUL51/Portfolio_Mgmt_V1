@@ -15,4 +15,5 @@ public class Portfolio {
     private String name;
     private String description;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

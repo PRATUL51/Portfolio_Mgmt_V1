@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<CustomerEntity> entity = repository.findById(request.getPanId());
 
         if(entity.isPresent()){
-            return new CustomerResponse(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.name(),ApplicationConstants.ID_EXIST_MSG,null);
+            return new CustomerResponse(HttpStatus.BAD_REQUEST.value(),ApplicationConstants.ALREADY_EXIST,ApplicationConstants.ID_EXIST_MSG,null);
         }else{
             CustomerEntity cust = new CustomerEntity();
             cust.setId(request.getPanId());
