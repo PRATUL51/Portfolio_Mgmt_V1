@@ -90,8 +90,12 @@ public class PortfolioServiceImpl implements PortfolioService{
         if(entity == null){
             return new PortfolioResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), ApplicationConstants.NOT_FOUND_MSG,null);
         }else {
-            entity.setName(request.getName());
-            entity.setDescription(request.getDescription());
+            if(request.getName() != null) {
+                entity.setName(request.getName());
+            }
+            if(request.getDescription() != null) {
+                entity.setDescription(request.getDescription());
+            }
             entity.setUpdatedAt(LocalDateTime.now());
 
             repository.save(entity);
